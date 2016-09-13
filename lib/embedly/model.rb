@@ -3,7 +3,9 @@ require 'ostruct'
 class Embedly::EmbedlyObject < OpenStruct
 
   # Resursively make ostruct
-  def initialize obj
+  # Default value added, this helps fix deserialization errors in Ruby 2.3+
+  # I'm not 100% sure why this is happening, but it looks like a change in YAML
+  def initialize obj = nil
     if obj
       o = obj.clone
       o.each do |k,v|
